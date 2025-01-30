@@ -31,7 +31,7 @@ const Profile = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center sm:px-32 py-32">
+        <div className="flex items-center">
             {userData && (
                 <>
                     <div className="border p-4 rounded shadow-lg sm:w-96">

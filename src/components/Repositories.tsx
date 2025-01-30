@@ -5,11 +5,10 @@ interface Repository {
 }
 
 const Repositories = () => {
-    const [repositories, setRepositories] = useState<Repository[]>([]); // Lista de repositórios
-    const [repoSearch, setRepoSearch] = useState(''); // Repositório de busca
-    const [filteredRepo, setFilteredRepo] = useState<Repository | null>(null); // Repositório filtrado
+    const [repositories, setRepositories] = useState<Repository[]>([]); 
+    const [repoSearch, setRepoSearch] = useState(''); 
+    const [filteredRepo, setFilteredRepo] = useState<Repository | null>(null); 
 
-    // Função para buscar todos os repositórios do usuário
     const fetchRepositories = async () => {
         try {
             const response = await fetch("https://api.github.com/users/FelipeErn/repos");
@@ -24,51 +23,44 @@ const Repositories = () => {
         }
     };
 
-    // Função para filtrar repositórios com base no campo de busca
     const handleSearch = () => {
         const repo = repositories.find(r => r.full_name.toLowerCase().includes(repoSearch.toLowerCase()));
         setFilteredRepo(repo || null);
     };
 
-    // Carregar todos os repositórios ao montar o componente
     useEffect(() => {
         fetchRepositories();
     }, []);
 
-    // Efetuar a pesquisa sempre que o campo de pesquisa mudar
     useEffect(() => {
         if (repoSearch === '') {
-            setFilteredRepo(null); // Se não houver busca, limpar o filtro
+            setFilteredRepo(null); 
         } else {
             handleSearch();
         }
     }, [repoSearch, repositories]);
 
     return (
-        <div className="flex flex-col items-center sm:px-32 py-32">
+        <div className="flex items-center">
             <div className="border p-4 rounded shadow-lg sm:w-96">
-                <h2 className="text-xl text-center mt-2">Repositórios</h2>
-                
-                {/* Campo de busca */}
+
                 <input
                     type="text"
                     value={repoSearch}
                     onChange={(e) => setRepoSearch(e.target.value)}
-                    placeholder="Buscar repositório"
+                    placeholder="Buscar"
                     className="mt-4 p-2 border border-gray-300 rounded"
                 />
                 
                 <ul className="mt-4 space-y-2">
-                    {/* Se houver um repositório filtrado, exibe ele */}
                     {filteredRepo ? (
                         <>
                             <li><strong>Nome do repositório:</strong> {filteredRepo.full_name}</li>
                         </>
                     ) : (
                         <>
-                            {/* Se não houver busca, mostra todos os repositórios */}
                             {repositories.map(repo => (
-                                <li>
+                                <li key={repo.full_name}>
                                     <strong>Nome do repositório:</strong> {repo.full_name}
                                 </li>
                             ))}
