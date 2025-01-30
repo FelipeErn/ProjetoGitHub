@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UserData {
     avatar_url: string;
@@ -10,12 +10,11 @@ interface UserData {
 }
 
 const Profile = () => {
-    const [username, setUsername] = useState<string>(""); 
     const [userData, setUserData] = useState<UserData | null>(null); 
 
     const fetchUserData = async () => {
         try {
-            const response = await fetch(`https://api.github.com/users/${username}`);
+            const response = await fetch(`https://api.github.com/users/FelipeErn`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -26,30 +25,13 @@ const Profile = () => {
             console.error("Error fetching data:", err);
         }
     };
-
-    const handleSubmit = (e: React.FormEvent) => { 
-        e.preventDefault();
+    
+    useEffect(() => {
         fetchUserData();
-    };
+    }, []);
 
     return (
         <div className="flex flex-col items-center sm:px-32 py-32">
-            <form onSubmit={handleSubmit} className="mb-4">
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter GitHub username"
-                    className="p-2 border rounded"
-                />
-                <button
-                    type="submit"
-                    className="ml-2 p-2 bg-blue-500 text-white rounded"
-                >
-                    Submit
-                </button>
-            </form>
-    
             {userData && (
                 <>
                     <div className="border p-4 rounded shadow-lg sm:w-96">
