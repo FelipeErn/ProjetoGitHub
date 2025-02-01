@@ -23,7 +23,7 @@ export default function App() {
       <div className="flex flex-row justify-evenly items-start">
         <Profile />
         <div className="flex flex-col items-center">
-          <div className="flex gap-4 mb-4">
+          <div className="flex gap-4 mb-4 w-full">
             <button
               className={`px-4 py-2 rounded ${selectedTab === "repositories" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
               onClick={() => setSelectedTab("repositories")}

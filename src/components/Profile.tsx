@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 
 interface UserData {
     avatar_url: string;
-    login: string;
     name: string;
-    public_repos: number;
-    public_gists: number;
-    created_at: string;
+    bio: string;
+    location: string;
+    company: string;
+    blog: string;
+    twitter_username: string;
 }
 
 const Profile = () => {
@@ -14,7 +15,7 @@ const Profile = () => {
 
     const fetchUserData = async () => {
         try {
-            const response = await fetch(`https://api.github.com/users/FelipeErn`);
+            const response = await fetch(`https://api.github.com/users/gabrielscordeiro`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -37,22 +38,48 @@ const Profile = () => {
                     <div className="border p-4 rounded shadow-lg sm:w-96">
                         <img
                             src={userData.avatar_url}
-                            alt={userData.login}
                             className="w-24 h-24 rounded-full mx-auto"
                         />
                         <h2 className="text-xl text-center mt-2">{userData.name}</h2>
-                        <p className="text-center text-gray-500">{userData.login}</p>
                         <ul className="mt-4 space-y-2">
                             <li>
-                                <strong>Public Repos:</strong> {userData.public_repos}
+                                <span>{userData.bio}</span>
                             </li>
-                            <li>
-                                <strong>Public Gists:</strong> {userData.public_gists}
-                            </li>
-                            <li>
-                                <strong>Created At:</strong> 
-                                {new Date(userData.created_at).toISOString().split("T")[0]}
-                            </li>
+
+                            {userData.company && (
+                                <li>
+                                    <a href={`https://${userData.company}`} target="_blank" rel="noopener noreferrer">
+                                        {userData.company}
+                                    </a>
+                                </li>
+                            )}
+
+                            {userData.location && (
+                                <li>
+                                    <span>{userData.location}</span>
+                                </li>
+                            )}
+
+                            {userData.blog && (
+                                <li>
+                                    <a href={`https://${userData.blog}`} target="_blank" rel="noopener noreferrer">
+                                        {userData.blog}
+                                    </a>
+                                </li>
+                            )}
+
+                            {userData.twitter_username && (
+                                <li>
+                                    <a
+                                        href={`https://x.com/${userData.twitter_username}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Twitter
+                                    </a>
+                                </li>
+                            )}
+
                         </ul>
                     </div>
                 </>
