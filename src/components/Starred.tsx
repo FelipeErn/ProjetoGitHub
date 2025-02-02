@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Search from "./Search";
 import Filters from "./FIlters";
+import { GitBranch, Star } from "@phosphor-icons/react";
 
 interface Starred {
   name: string;
@@ -70,22 +71,22 @@ const Starred = () => {
   }, [filters, searchQuery, starred]);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 w-full">
+      <div className="w-full flex flex-row gap-4 items-center">
+        <Search searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+        <Filters onApplyFilters={setFilters} />
+      </div>
 
-      <Search searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
-      <Filters onApplyFilters={setFilters} />
-
-      <ul className="mt-4 space-y-2">
+      <ul className="mt-4 space-y-2 w-full">
         {filteredStarred.length > 0 ? (
           filteredStarred.map((repo) => (
-            <li key={repo.name} className="border p-2 rounded">
-              <strong>Nome:</strong> {repo.name} <br />
-              <strong>Linguagem:</strong> {repo.language || "Desconhecida"}{" "}
-              <br />
-              <strong>Forks:</strong> {repo.forks_count} <br />
-              <strong>Descrição:</strong> {repo.description || "Sem descrição"}{" "}
-              <br />
+            <li key={repo.name} className="flex flex-col gap-2 p-2 rounded">
+              <span className="text-xl font-light">{repo.name}</span>
+              <span className="text-sm text-gray-500 font-light">{repo.description || "Sem descrição"} </span>
+              <div className="flex flex-row justify-start gap-4">
+                <span className="flex items-center leading-none gap-2"><Star size={20} weight="fill" /> {repo.language}</span>
+                <span className="flex items-center leading-none gap-2"><GitBranch size={20} weight="fill" /> {repo.forks_count}</span>
+              </div>
             </li>
           ))
         ) : (

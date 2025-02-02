@@ -32,23 +32,23 @@ const Profile = () => {
     }, []);
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center justify-center container">
             {userData && (
                 <>
-                    <div className="border p-4 rounded shadow-lg sm:w-96">
+                    <div className="">
                         <img
                             src={userData.avatar_url}
-                            className="w-24 h-24 rounded-full mx-auto"
+                            className="w-42 h-42 rounded-full mx-auto"
                         />
-                        <h2 className="text-xl text-center mt-2">{userData.name}</h2>
-                        <ul className="mt-4 space-y-2">
-                            <li>
-                                <span>{userData.bio}</span>
+                        <h2 className="text-2xl font-semibold text-center mt-6">{userData.name}</h2>
+                        <ul className="mt-1 space-y-2">
+                            <li className="mb-8">
+                                <span className="text-gray-500 text-center">{userData.bio}</span>
                             </li>
 
                             {userData.company && (
                                 <li>
-                                    <a href={`https://${userData.company}`} target="_blank" rel="noopener noreferrer">
+                                    <a href={`https://${userData.company}`} className="text-blue-600" target="_blank" rel="noopener noreferrer">
                                         {userData.company}
                                     </a>
                                 </li>
@@ -56,13 +56,13 @@ const Profile = () => {
 
                             {userData.location && (
                                 <li>
-                                    <span>{userData.location}</span>
+                                    <span className="text-blue-600">{userData.location}</span>
                                 </li>
                             )}
 
                             {userData.blog && (
                                 <li>
-                                    <a href={`https://${userData.blog}`} target="_blank" rel="noopener noreferrer">
+                                    <a href={`https://${userData.blog}`} className="text-blue-600" target="_blank" rel="noopener noreferrer">
                                         {userData.blog}
                                     </a>
                                 </li>
@@ -74,6 +74,7 @@ const Profile = () => {
                                         href={`https://x.com/${userData.twitter_username}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        className="text-blue-600"
                                     >
                                         Twitter
                                     </a>

@@ -1,17 +1,22 @@
+import { MagnifyingGlass } from "@phosphor-icons/react";
+
 interface SearchProps {
     searchQuery: string;
     onSearchChange: (query: string) => void;
   }
-  
   const Search = ({ searchQuery, onSearchChange }: SearchProps) => {
     return (
-      <div className="border p-4 rounded shadow-lg sm:w-96">
+      <div className="relative w-full">
+        <MagnifyingGlass 
+          size={28} 
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+        />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Buscar repositório"
-          className="mt-4 p-2 border border-gray-300 rounded w-full"
+          placeholder="Search Here"
+          className="text-xl pl-14 p-2 border-b border-gray-300 w-full outline-none "
         />
       </div>
     );

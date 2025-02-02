@@ -4,6 +4,7 @@ import Profile from "./components/Profile";
 import Repositories from "./components/Repositories";
 import Header from "./components/Header";
 import Starred from "./components/Starred";
+import { BookBookmark, Star } from "@phosphor-icons/react";
 
 export default function App() {
   const [selectedTab, setSelectedTab] = useState<"repositories" | "starred">("repositories");
@@ -22,19 +23,19 @@ export default function App() {
 
       <div className="flex flex-row justify-evenly items-start">
         <Profile />
-        <div className="flex flex-col items-center">
-          <div className="flex gap-4 mb-4 w-full">
+        <div className="flex flex-col items-center container">
+          <div className="flex gap-16 mb-4 w-full">
             <button
-              className={`px-4 py-2 rounded ${selectedTab === "repositories" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+              className={`flex gap-2 px-1 py-2  ${selectedTab === "repositories" ? "border-b text-black" : "text-gray-400 font-normal"}`}
               onClick={() => setSelectedTab("repositories")}
             >
-              Repositórios: {repositoriesCount}
+             <div className="text-xl flex gap-4 items-center leading-none"><BookBookmark size={26} /> Repositories <span className="bg-gray-300 rounded-3xl border border-gray-600 text-sm px-3 py-0.5">{repositoriesCount}</span></div>
             </button>
             <button
-              className={`px-4 py-2 rounded ${selectedTab === "starred" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+              className={`flex gap-2 spx-4 py-2 ${selectedTab === "starred" ? "border-b text-black" : "text-gray-400 font-normal"}`}
               onClick={() => setSelectedTab("starred")}
             >
-              Favoritos: {starredCount}
+              <div className="text-xl flex gap-4 items-center leading-none"><Star size={26} /> Starred <span className="bg-gray-300 rounded-3xl border border-gray-600 text-sm px-3 py-0.5">{starredCount}</span></div>
             </button>
           </div>
 

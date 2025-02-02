@@ -1,4 +1,6 @@
+import { CaretDown } from "@phosphor-icons/react";
 import { useState } from "react";
+
 
 interface FilterProps {
   onApplyFilters: (filters: { type: string[]; language: string[] }) => void;
@@ -7,8 +9,8 @@ interface FilterProps {
 const Filters = ({ onApplyFilters }: FilterProps) => {
   const [selectedType, setSelectedType] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);
-  const [showTypeOptions, setShowTypeOptions] = useState(false);
-  const [showLanguageOptions, setShowLanguageOptions] = useState(false);
+  const [showTypeModal, setShowTypeModal] = useState(false);
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
 
   const handleTypeChange = (type: string) => {
     let newTypes = [...selectedType];
@@ -52,61 +54,89 @@ const Filters = ({ onApplyFilters }: FilterProps) => {
 
   const applyFilters = () => {
     onApplyFilters({ type: selectedType, language: selectedLanguage });
+    setShowTypeModal(false);
+    setShowLanguageModal(false);
   };
 
   return (
-    <div className="p-4 border rounded shadow-lg">
+    <div className="flex flex-row gap-2 p-4 w-full">
       <button
-        onClick={() => setShowTypeOptions(!showTypeOptions)}
-        className="w-full text-left font-bold py-2 px-4 bg-gray-200 rounded mb-2"
+        onClick={() => setShowTypeModal(true)}
+        className="flex flex-row justify-center gap-4 text-center font-medium py-2 px-4 bg-custom-gradientrounded-3xl mb-2"
       >
-        Filter by Type
+        <CaretDown size={20} />
+        <span>Type</span>
       </button>
-      {showTypeOptions && (
-        <div className="mb-4">
-          {["All", "Forks", "Archived", "Mirrors"].map((type) => (
-            <label key={type} className="block">
-              <input
-                type="checkbox"
-                checked={selectedType.includes(type)}
-                onChange={() => handleTypeChange(type)}
-              />
-              {type}
-            </label>
-          ))}
-          <button
-            onClick={applyFilters}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Apply Filters
-          </button>
+
+      <button
+        onClick={() => setShowLanguageModal(true)}
+        className="flex flex-row justify-center gap-4 text-center font-medium py-2 px-4 bg-custom-gradientrounded-3xl mb-2"
+      >
+        <CaretDown size={20} />
+        <span>Language</span>
+      </button>
+
+      {showTypeModal && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-4 rounded-lg w-80">
+            <h3 className="font-bold mb-4">Select Type Filters</h3>
+            {["All", "Forks", "Archived", "Mirrors", "Starred"].map((type) => (
+              <label key={type} className="block">
+                <input
+                  type="checkbox"
+                  checked={selectedType.includes(type)}
+                  onChange={() => handleTypeChange(type)}
+                />
+                {type}
+              </label>
+            ))}
+            <div className="mt-4 flex justify-between">
+              <button
+                onClick={applyFilters}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Apply Filters
+              </button>
+              <button
+                onClick={() => setShowTypeModal(false)}
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
-      <button
-        onClick={() => setShowLanguageOptions(!showLanguageOptions)}
-        className="w-full text-left font-bold py-2 px-4 bg-gray-200 rounded mb-2"
-      >
-        Filter by Language
-      </button>
-      {showLanguageOptions && (
-        <div className="mb-4">
-          {["All", "Java", "TypeScript", "HTML", "CSS"].map((lang) => (
-            <label key={lang} className="block">
-              <input
-                type="checkbox"
-                checked={selectedLanguage.includes(lang)}
-                onChange={() => handleLanguageChange(lang)}
-              />
-              {lang}
-            </label>
-          ))}
-          <button
-            onClick={applyFilters}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Apply Filters
-          </button>
+      {showLanguageModal && (
+        <div className="fixed inset-0 bg-gray-800 flex justify-center items-center z-50">
+          <div className="bg-white p-4 rounded-lg w-80">
+            <h3 className="font-bold mb-4">Select Language Filters</h3>
+            {["All", "Java", "TypeScript", "HTML", "CSS"].map((lang) => (
+              <label key={lang} className="block">
+                <input
+                  type="checkbox"
+                  checked={selectedLanguage.includes(lang)}
+                  onChange={() => handleLanguageChange(lang)}
+                />
+                {lang}
+              </label>
+            ))}
+            <div className="mt-4 flex justify-between">
+              <button
+                onClick={applyFilters}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Apply Filters
+              </button>
+              <button
+                onClick={() => setShowLanguageModal(false)}
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

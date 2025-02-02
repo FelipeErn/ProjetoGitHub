@@ -12,13 +12,13 @@ export const useStore = create<Store>((set) => ({
   starredCount: 0,
 
   fetchRepositoriesCount: async () => {
-    const response = await fetch("https://api.github.com/users/FelipeErn");
+    const response = await fetch("https://api.github.com/users/gabrielscordeiro");
     const data = await response.json();
     set({ repositoriesCount: data.public_repos }); 
   },
 
   fetchStarredCount: async () => {
-    const response = await fetch("https://api.github.com/users/FelipeErn/starred");
+    const response = await fetch("https://api.github.com/users/gabrielscordeiro/starred");
     const data = await response.json();
     set({ starredCount: data.length }); 
   },

@@ -1,7 +1,7 @@
 const Header = () => {
 
     return (
-        <nav className="w-full bg-gray-700 fixed">
+        <nav className="w-full bg-slate-950 fixed z-10">
             <h1 className="text-white p-6">GitHub / Profile</h1>
         </nav>
     )
