@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Filters from "./FIlters";
+import Filters from "./Filters";
 import Search from "./Search";
 import { GitBranch, Star } from "@phosphor-icons/react";
 

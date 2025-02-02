@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Search from "./Search";
-import Filters from "./FIlters";
+import Filters from "./Filters";
 import { GitBranch, Star } from "@phosphor-icons/react";
 
 interface Starred {
