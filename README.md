@@ -2,6 +2,8 @@
 
 Este projeto permite explorar perfis do GitHub, exibir seus repositórios e favoritos, além de oferecer funcionalidades de busca e exibição de detalhes dos repositórios.
 
+🔗 **Acesse o projeto online:** [GitHub Explorer](https://projeto-git-hub-k6ch.vercel.app)
+
 ## 🚀 Tecnologias Utilizadas
 
 - **React** com **TypeScript**
@@ -72,3 +74,4 @@ Durante o desenvolvimento deste projeto, enfrentei alguns desafios e aprendi bas
 ## 📜 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
