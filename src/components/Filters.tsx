@@ -1,4 +1,4 @@
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDown, X } from "@phosphor-icons/react";
 import { useState } from "react";
 
 
@@ -59,33 +59,40 @@ const Filters = ({ onApplyFilters }: FilterProps) => {
   };
 
   return (
-    <div className="flex flex-row gap-2 p-4 w-full">
+    <div className="mt-2 flex flex-row gap-2 p-2.5 w-full bg-gray-100 rounded-xl md:bg-transparent md:p-0">
       <button
         onClick={() => setShowTypeModal(true)}
-        className="flex flex-row justify-center gap-4 text-center font-medium py-2 px-4 bg-custom-gradientrounded-3xl mb-2"
+        className="flex flex-row items-center justify-center gap-0 rounded-3xl text-white text-center font-medium py-2 px-2 bg-blue-600 md:py-1.5"
       >
-        <CaretDown size={20} />
-        <span>Type</span>
+        <CaretDown size={16} color="#ffffff" weight="bold" />
+        <span className="text-sm font-light px-3">Type</span>
       </button>
-
+  
       <button
         onClick={() => setShowLanguageModal(true)}
-        className="flex flex-row justify-center gap-4 text-center font-medium py-2 px-4 bg-custom-gradientrounded-3xl mb-2"
+        className="flex flex-row items-center justify-center gap-0 rounded-3xl text-white text-center font-medium py-2 px-2 bg-blue-600 md:py-1.5"
       >
-        <CaretDown size={20} />
-        <span>Language</span>
+        <CaretDown size={16} color="#ffffff" weight="bold" />
+        <span className="text-sm font-light px-3">Language</span>
       </button>
-
+  
       {showTypeModal && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-4 rounded-lg w-80">
-            <h3 className="font-bold mb-4">Select Type Filters</h3>
+        <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative w-full h-full p-6">
+            <button
+              onClick={() => setShowTypeModal(false)}
+              className="absolute top-8 right-6 text-red-500"
+            >
+              <X size={24} color="#fe354d" weight="bold" />
+            </button>
+            <h3 className="font-bold text-2xl mb-12 text-start">Type</h3>
             {["All", "Forks", "Archived", "Mirrors", "Starred"].map((type) => (
-              <label key={type} className="block">
+              <label key={type} className="mb-5 flex leading-none items-center">
                 <input
                   type="checkbox"
                   checked={selectedType.includes(type)}
                   onChange={() => handleTypeChange(type)}
+                  className="h-5 w-5 mr-4"
                 />
                 {type}
               </label>
@@ -93,31 +100,32 @@ const Filters = ({ onApplyFilters }: FilterProps) => {
             <div className="mt-4 flex justify-between">
               <button
                 onClick={applyFilters}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="flex flex-row items-center justify-center gap-4 rounded-3xl text-white text-center font-medium py-2 px-4 bg-blue-600 mt-4"
               >
                 Apply Filters
-              </button>
-              <button
-                onClick={() => setShowTypeModal(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded"
-              >
-                Cancel
               </button>
             </div>
           </div>
         </div>
       )}
-
+  
       {showLanguageModal && (
-        <div className="fixed inset-0 bg-gray-800 flex justify-center items-center z-50">
-          <div className="bg-white p-4 rounded-lg w-80">
-            <h3 className="font-bold mb-4">Select Language Filters</h3>
+        <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative w-full h-full p-6">
+            <button
+              onClick={() => setShowLanguageModal(false)}
+              className="absolute top-8 right-6 text-red-500"
+            >
+              <X size={24} color="#fe354d" weight="bold" />
+            </button>
+            <h3 className="font-bold text-2xl mb-12 text-start">Language</h3>
             {["All", "Java", "TypeScript", "HTML", "CSS"].map((lang) => (
-              <label key={lang} className="block">
+              <label key={lang} className="mb-5 flex leading-none items-center">
                 <input
                   type="checkbox"
                   checked={selectedLanguage.includes(lang)}
                   onChange={() => handleLanguageChange(lang)}
+                  className="h-5 w-5 mr-4"
                 />
                 {lang}
               </label>
@@ -125,15 +133,9 @@ const Filters = ({ onApplyFilters }: FilterProps) => {
             <div className="mt-4 flex justify-between">
               <button
                 onClick={applyFilters}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="flex flex-row items-center justify-center gap-4 rounded-3xl text-white text-center font-medium py-2 px-4 bg-blue-600 mt-4"
               >
                 Apply Filters
-              </button>
-              <button
-                onClick={() => setShowLanguageModal(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded"
-              >
-                Cancel
               </button>
             </div>
           </div>
@@ -141,6 +143,7 @@ const Filters = ({ onApplyFilters }: FilterProps) => {
       )}
     </div>
   );
+  
 };
 
 export default Filters;
